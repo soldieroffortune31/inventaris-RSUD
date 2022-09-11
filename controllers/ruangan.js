@@ -6,7 +6,7 @@ module.exports = {
     index : async (req, res) => {
         await ruangan.findAll({where : {deleted : false}, order : [['id','ASC']]})
         .then(dataRuangan => {
-            res.status(200).render('tabelruangan', {dataRuangan});;
+            res.status(200).render('dataruangan', {dataRuangan});;
         })
     },
 

@@ -56,21 +56,43 @@
       </div>
       <div class="col-md-10">
         <div class="container-fluid">
-          <h3>Input Data Ruangan</h3>
+          <h3>Input Data Petugas</h3>
           <hr />
-          <form action="/ruangan" method="post">
+          <form action="/petugas" method="post">
             <div class="row">
               <div class="col-md-6">
                 <div class="row mb-3">
-                  <label for="inputIdRuangan" class="col-sm-3 col-form-label">ID Ruangan</label>
-                  <div class="col-sm-3">
-                    <input type="text" class="form-control" id="inputIdRuangan" name="id_ruangan"/>
+                  <label for="inputNama" class="col-sm-3 col-form-label">Nama Lengkap</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputNama" name="nama_petugas"/>
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputNamaRuangan" class="col-sm-3 col-form-label">Nama Ruangan</label>
+                  <label for="inputUsername" class="col-sm-3 col-form-label">Username</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" id="inputNamaRuangan" name="nama_ruangan"/>
+                    <input type="text" class="form-control" id="inputUsername" name="username"/>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
+                  <div class="col-sm-9">
+                    <input type="password" class="form-control" id="inputPassword" name="password"/>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputRetypePassword" class="col-sm-3 col-form-label">Re-type Password</label>
+                  <div class="col-sm-9">
+                    <input type="password" class="form-control" id="inputRetypePassword" name="repeat_password"/>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="selectLevel" class="col-sm-3 col-form-label">Level</label>
+                  <div class="col-sm-9">
+                    <select id="selectLevel" class="form-select" name="level">
+                      <option selected>Pilih Level</option>
+                      <option value="Admin">Admin</option>
+                      <option value="Petugas">Petugas</option>
+                    </select>
                   </div>
                 </div>
 
@@ -78,7 +100,6 @@
                   <div class="col-sm-3"></div>
                   <div class="col-sm-9">
                     <button type="submit" class="btn btn-success">Simpan</button>
-                    <!-- <a href="dataruangan.html" type="submit" role="button" class="btn btn-success">Simpan</a> -->
                   </div>
                 </div>
               </div>

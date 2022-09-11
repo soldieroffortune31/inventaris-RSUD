@@ -12,13 +12,43 @@
     <nav class="navbar navbar-expand-lg bg-success">
       <div class="container-fluid">
         <a class="navbar-brand ms-2" href="#">
-          <img style="width: 50px; border-radius: 50px" src="../assets/logoRS.jpg" alt="" />
+          <img style="width: 50px; border-radius: 50px" src="./assets/logoRS.jpg" alt="" />
         </a>
         <h5>Aplikasi Inventaris RSUD Waluyo Jati</h5>
 
-        <div data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="User">
-          <i class="bi bi-person-circle me-2" style="font-size: 2rem; color: white; cursor: pointer"></i>
-        </div>
+      <!-- <div class="dropdown show"> -->
+        <!-- <div data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="User">
+          <i class="bi bi-person-circle me-2" style="font-size: 2rem; color: white; cursor: pointer"> </i>
+        </div> -->
+        <!-- <li class="nav-item dropdown pe-3"> -->
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle me-2" style="font-size: 2rem; color: white; cursor: pointer"> </i>
+            <!-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
+            <span class="d-none d-md-block dropdown-toggle ps-2"><%= user.nama_petugas %></span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+        
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/petugas/updatepassword">
+                <i class="bi bi-gear"></i>
+                <span>Ganti Password</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/logout">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Keluar</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+      <!-- </div> -->
       </div>
     </nav>
 
@@ -32,9 +62,10 @@
           <li class="nav-item">
             <a class="nav-link text-dark" href="/ruangan">Data Ruangan</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="/petugas">Data Petugas</a>
-          </li>
+          
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="/petugas">Data Petugas</a>
+            </li>
         </ul>
         <hr />
         <h5>Transaksi</h5>
@@ -55,35 +86,9 @@
         </ul>
       </div>
       <div class="col-md-10">
-        <div class="container-fluid">
-          <h3>Input Data Ruangan</h3>
-          <hr />
-          <form action="/ruangan" method="post">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="row mb-3">
-                  <label for="inputIdRuangan" class="col-sm-3 col-form-label">ID Ruangan</label>
-                  <div class="col-sm-3">
-                    <input type="text" class="form-control" id="inputIdRuangan" name="id_ruangan"/>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputNamaRuangan" class="col-sm-3 col-form-label">Nama Ruangan</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="inputNamaRuangan" name="nama_ruangan"/>
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <div class="col-sm-3"></div>
-                  <div class="col-sm-9">
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                    <!-- <a href="dataruangan.html" type="submit" role="button" class="btn btn-success">Simpan</a> -->
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
+        <div class="d-flex justify-content-center align-items-center" style="height: 100vh">
+          <% user %>
+          <h1>Welcome <%= user.nama_petugas %> </h1>
         </div>
       </div>
     </div>

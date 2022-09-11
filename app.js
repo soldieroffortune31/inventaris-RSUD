@@ -8,6 +8,7 @@ var session = require('express-session');
 var flash = require('express-flash');
 var passport = require('./lib/passport');
 
+var index = require('./routes/index')
 var ruanganRouter = require('./routes/ruangan');
 var barangRouter = require('./routes/barang');
 var petugasRouter = require('./routes/petugas');
@@ -15,8 +16,19 @@ var usersRouter = require('./routes/users');
 var login = require('./routes/login')
 var home = require('./routes/home');
 var distibusiRouter = require('./routes/distribusi');
+var laporan = require('./routes/laporan');
+var logout = require('./routes/logout');
 
 var app = express();
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, '/public')));
+app.use(bodyParser.json())
+
 app.use(session({
   secret : 'Buat ini jadi rahasia',
   resave : false,
@@ -24,19 +36,11 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(flash());
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-// app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '/public')));
-app.use(bodyParser.json())
 
 
 app.use('/petugas', petugasRouter);
@@ -46,6 +50,10 @@ app.use('/users', usersRouter);
 app.use('/login', login);
 app.use('/home', home);
 app.use('/distribusi', distibusiRouter);
+app.use('/laporan', laporan);
+app.use('/', index);
+app.use('/logout', logout);
+
 
 app.use('/', (req, res) => {
   res.status('404').send('Page Not Found');

@@ -3,8 +3,8 @@ const passport = require('../lib/passport');
 
 module.exports = {
     login : passport.authenticate('local',{
-        successRedirect : '/distribusi/pilih',
-        failureRedirect : '/login',
+        successRedirect : '/home',
+        failureRedirect : '/',
         failureFlash : true
     })
     // login : (req, res) => {

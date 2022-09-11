@@ -56,37 +56,62 @@
       </div>
       <div class="col-md-10">
         <div class="container-fluid">
-          <h3>Input Data Ruangan</h3>
+          <h3>Laporan Inventaris Ruangan</h3>
           <hr />
-          <form action="/ruangan" method="post">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="row mb-3">
-                  <label for="inputIdRuangan" class="col-sm-3 col-form-label">ID Ruangan</label>
-                  <div class="col-sm-3">
-                    <input type="text" class="form-control" id="inputIdRuangan" name="id_ruangan"/>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputNamaRuangan" class="col-sm-3 col-form-label">Nama Ruangan</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="inputNamaRuangan" name="nama_ruangan"/>
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <div class="col-sm-3"></div>
-                  <div class="col-sm-9">
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                    <!-- <a href="dataruangan.html" type="submit" role="button" class="btn btn-success">Simpan</a> -->
-                  </div>
-                </div>
-              </div>
+          <form class="row" method="post" action="/laporan/getdetail">
+            <div class="col-1">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Ruangan" />
             </div>
+            <div class="col-auto">
+              <label for="pilihRuangan" class="visually-hidden">Pilih Ruangan</label>
+              <select class="form-select" name="id_ruangan" id="id_ruangan">
+                <option selected>Pilih Ruangan</option>
+                <% dataRuangan.forEach(element => { %>
+                  <option value="<%= element.id_ruangan %>"><%= element.nama_ruangan %></option>
+                <% }) %> 
+              </select>
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-success mb-3">Cari</button>
+            </div> 
           </form>
+          <table class="table table-success table-striped table-bordered my-3">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Kode Barang</th>
+                <th scope="col">Nama Barang</th>
+                <th scope="col">Merk</th>
+                <th scope="col">Jumlah</th>
+                <th scope="col">Harga</th>
+                <th scope="col">B</th>
+                <th scope="col">KB</th>
+                <th scope="col">RB</th>
+              </tr>
+            </thead>
+            <tbody>
+                  <tr>
+                    <th scope="row"></th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script>
+      function getRuangan(){
+        // window.location = 'laporan/getdetail/' + document.getElementById('id_ruangan').value
+        
+      }
+    </script>
   </body>
 </html>

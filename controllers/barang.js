@@ -5,7 +5,7 @@ module.exports = {
     renderbarang : async (req, res) => {
         await barang.findAll({where : {deleted : false}, order : [['id', 'ASC']]})
         .then(dataBarang => {
-            res.status(200).render('tabelbarang', {dataBarang});
+            res.status(200).render('databarang', {dataBarang});
         }) 
     },
 
@@ -13,6 +13,7 @@ module.exports = {
         res.status(200).render('inputbarang');
     },
 
+    // sini 
     renderupdate : async (req, res) => {
         const id = Number(req.params.id);
         await barang.findOne({where : {id : id}})

@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 module.exports = {
 
     inputPetugas : async (req,res) => {
-        res.status(200).render('inputpetugas');
+        res.status(200).render('inputdatapetugas');
     },
 
     renderpetugas : async (req, res) => {
@@ -12,7 +12,7 @@ module.exports = {
         console.log(req.user.dataValues);
         await petugas.findOne({where : {id : id}})
         .then(dataPetugas => {
-            res.status(200).render('updatepetugas', {dataPetugas});
+            res.status(200).render('updatedatapetugas', {dataPetugas});
         })
       
     },
@@ -43,7 +43,7 @@ module.exports = {
     index : async (req, res) => {
         await petugas.findAll({order : [['id', 'ASC']]})
         .then(dataPetugas => {
-            res.status(200).render('tabelpetugas', {dataPetugas});
+            res.status(200).render('datapetugas', {dataPetugas});
         })
         
     },
