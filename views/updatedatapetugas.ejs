@@ -79,11 +79,11 @@
                   <div class="col-sm-9">
                     <select id="selectLevel" class="form-select" name="level">
                       <% if (dataPetugas.level === "Admin") { %>
-                        <option selected value="Admin"><%= dataPetugas.level %> </option>
+                        <option selected value="Admin"><%= dataPetugas.level %></option>
                         <option value="Petugas">Petugas</option>
                       <% } else { %>
                         <option value="Admin">Admin</option>
-                        <option selected value = "Petugas"><%= dataPetugas.level %> </option>
+                        <option selected value = "Petugas"><%= dataPetugas.level %></option>
                       <% } %>   
                     </select>
                   </div>

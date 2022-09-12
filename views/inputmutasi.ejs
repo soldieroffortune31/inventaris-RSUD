@@ -56,8 +56,9 @@
       </div>
       <div class="col-md-10">
         <div class="container-fluid">
-          <h3>Distribusi Barang</h3>
+          <h3>Mutasi Barang</h3>
           <hr />
+          
           <form class="mt-4" action="/mutasi" method="post" id="form">
             
               <div class="row">
@@ -65,7 +66,8 @@
                   <div class="row mb-3">
                     <label for="inputIdRuangan" class="col-sm-3 col-form-label">Kode Barang</label>
                     <div class="col-sm-3">
-                      <input type="hidden" name="id_barang">
+                      <input type="hidden" name="id_detailbarang" value="<%= getDetail[0].id_detailbarang %>">
+                      <input type="hidden" name="idRuangan" value="<%= getDetail[0].id_ruangan %>">
                       <input type="text" class="form-control" id="inputIdRuangan" name="kode_barang" value="<%= getDetail[0].barang.kode_barang %>" readonly/>
                     </div>
                   </div>
@@ -76,39 +78,26 @@
                     </div>
                   </div>
                 
-                <div class="row mb-3">
-                  <label for="inputJumlah" class="col-sm-3 col-form-label">Jumlah</label>
-                  <div class="col-sm-2">
-                    <% console.log(jumlahBarang) %>
-                    <input type="hidden" name="jumlahBarang" value="<%= jumlahBarang %>">
-                    <input type="number" class="form-control" id="inputJumlah" name="jumlah"/>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="kondisiRuangan" class="col-sm-3 col-form-label">Kondisi</label>
-                  <div class="col-sm-9">
-                    <div class="row align-items-center">
-                      <div class="col-md-1">
-                        <label for="kondisibaik">Baik</label>
-                      </div>
-                      <div class="col-md-2">
-                        <input type="text" class="form-control" id="baik" name="baik" onkeyup="cek()"/>
-                      </div>
-                      <div class="col-md-3">
-                        <label for="kurangbaik">Kurang Baik</label>
-                      </div>
-                      <div class="col-md-2">
-                        <input type="text" class="form-control" id="kurang_baik" name="kurang_baik"/>
-                      </div>
-                      <div class="col-md-2">
-                        <label for="rusak">Rusak</label>
-                      </div>
-                      <div class="col-md-2">
-                        <input type="text" class="form-control" id="rusak_berat" name="rusak_berat"/>
-                      </div>
+                  <div class="row mb-3">
+                    <label for="selectLevel" class="col-sm-3 col-form-label">Kondisi</label>
+                    <div class="col-sm-9">
+                      <select id="selectLevel" class="form-select" name="kondisi">
+                        <% if (getDetail[0].kondisi === "Baik") { %>
+                          <option selected value="Baik"><%= getDetail[0].kondisi %></option>
+                          <option value="Kurang Baik">Kurang Baik</option>
+                          <option value="Rusak Berat">Rusak Berat</option>
+                        <% } else if(getDetail[0].kondisi === "Kurang Baik") { %>
+                          <option value="Baik">Baik</option>
+                          <option selected value = "Kurang Baik"><%= getDetail[0].kondisi %></option>
+                          <option value="Rusak Berat">Rusak Berat</option>
+                        <% } else { %>
+                          <option value="Baik">Baik</option>
+                          <option value="Kurang Baik">Kurang Baik</option>
+                          <option selected value = "Rusak Berat"><%= getDetail[0].kondisi %></option>
+                        <% } %>   
+                      </select>
                     </div>
                   </div>
-                </div>
                 <div class="row mb-3">
                   <label for="pilihRuangan" class="col-sm-3 col-form-label">Pilih Ruangan</label>
                   <div class="col-sm-3">

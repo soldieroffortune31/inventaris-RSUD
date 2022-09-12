@@ -50,7 +50,7 @@
             <a class="nav-link text-dark" href="/distribusi/pilih">Distribusi</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" href="mutasi.html">Mutasi</a>
+            <a class="nav-link text-dark" href="/mutasi">Mutasi</a>
           </li>
         </ul>
         <hr />
@@ -64,16 +64,15 @@
       <div class="col-md-10">
         <div class="container-fluid">
           <h3>Pilih Barang Yang Akan Dimutasi</h3>
-          <hr />
+          <hr /> 
           <form class="row" method="post" action="/mutasi/getdata">
             <div class="col-1">
               <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Ruangan" />
             </div>
             <div class="col-auto">
               <label for="pilihRuangan" class="visually-hidden">Pilih Ruangan</label>
-              <select class="form-select" name="id_ruangan" id="id_ruangan">
-                <% let setSelected = "" %> 
-                <option selected>Pili Ruangan</option>
+              <select class="form-select" name="id_ruangan" id="id_ruangan"> 
+                <option selected>Pilih Ruangan</option>
                 <% getRuangan.forEach(element =>{ %>
                     <option value="<%= element.id_ruangan %>"><%= element.nama_ruangan %></option> 
                 <% }) %> 
@@ -83,15 +82,19 @@
               <button type="submit" class="btn btn-success mb-3">Cari</button>
             </div> 
           </form>
+          <% if (jumlah === 0) { %>
+           
+          <% }else{ %>
+            <label><%= getDetail[0].ruangan.nama_ruangan %> </label>
+          <% } %>
           <table class="table table-success table-striped table-bordered my-3">
             <thead>
               <tr>
                 <th scope="col">No</th>
+                <th scope="col">ID Detail Barang</th>
                 <th scope="col">Kode Barang</th>
                 <th scope="col">Nama Barang</th>
                 <th scope="col">Merk</th>
-                <th scope="col">Tipe</th>
-                <th scope="col">Jumlah</th>
                 <th scope="col">Harga</th>
                 <th scope="col">B</th>
                 <th scope="col">KB</th>
@@ -102,30 +105,42 @@
             <tbody>
               <% let no = 1 %>
               <% 
-                        const rupiah = (number) =>{
-                          var bilangan = number;
-    
-                          var reverse = bilangan.toString().split('').reverse().join(''),
-                          ribuan  = reverse.match(/\d{1,3}/g);
-                          ribuan  = ribuan.join('.').split('').reverse().join('');
-                          return ribuan;  
-                        }
-                        
-                     %>
-              <% getData.forEach(element => { %>
+                const rupiah = (number) =>{
+                  var bilangan = number;
+
+                  var reverse = bilangan.toString().split('').reverse().join(''),
+                  ribuan  = reverse.match(/\d{1,3}/g);
+                  ribuan  = ribuan.join('.').split('').reverse().join('');
+                  return ribuan;  
+                }
+                
+              %>
+              <% getDetail.forEach(element => { %>
+               
                 <tr>
                   <th scope="row"><%= no++ %></th>
-                  <td><%= element.kode_barang %></td>
-                  <td><%= element.nama_barang %></td>
-                  <td><%= element.merk %></td>
-                  <td><%= element.tipe %></td>
-                  <td><%= element.jumlah %></td>
-                  <td><%= rupiah(element.harga) %></td>
-                  <td><%= element.baik %></td>
-                  <td><%= element.kurang_baik %></td>
-                  <td><%= element.rusak_berat %></td>
+                  <td><%= element.id_detailbarang %></td>
+                  <td><%= element.barang.kode_barang %></td>
+                  <td><%= element.barang.nama_barang %></td>
+                  <td><%= element.barang.merk %></td>
+                  <td><%= rupiah(element.barang.harga) %></td>
+                  <% if(element.kondisi === "Baik"){ %>
+                    <td>1</td>
+                  <% }else{ %>
+                    <td>0</td>
+                  <% } %>
+                  <% if(element.kondisi === "Kurang Baik"){ %>
+                    <td>1</td>
+                  <% }else{ %>
+                    <td>0</td>
+                  <% } %>
+                  <% if(element.kondisi === "Rusak Berat"){ %>
+                    <td>1</td>
+                  <% }else{ %>
+                    <td>0</td>
+                  <% } %>
                   <td>
-                    <a href="/mutasi/<%= element.id_barang %>/<%= element.id_ruangan %>" role="button" class="btn btn-success btn-sm">Pilih</a>
+                    <a href="/mutasi/<%= element.id_detailbarang %>/" role="button" class="btn btn-success btn-sm">Pilih</a>
                   </td>
                 </tr>
               <% }) %>

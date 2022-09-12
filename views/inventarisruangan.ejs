@@ -73,7 +73,7 @@
               <label for="pilihRuangan" class="visually-hidden">Pilih Ruangan</label>
               <select class="form-select" name="id_ruangan" id="id_ruangan">
                 <% let setSelected = "" %> 
-                <option selected>Pili Ruangan</option>
+                <option selected value="">Pilih Ruangan</option>
                 <% getRuangan.forEach(element =>{ %>
                     <option value="<%= element.id_ruangan %>"><%= element.nama_ruangan %></option> 
                 <% }) %> 
@@ -83,6 +83,11 @@
               <button type="submit" class="btn btn-success mb-3">Cari</button>
             </div> 
           </form>
+          <% if (getData.length === 0) { %>
+           
+          <% }else{ %>
+            <label><%= getData[0].nama_ruangan %> </label>
+          <% } %>
           <table class="table table-success table-striped table-bordered my-3">
             <thead>
               <tr>
@@ -129,7 +134,11 @@
               <% }) %>
             </tbody>
           </table>
-          <button type="submit" class="btn btn-success mb-3" onclick="window.print()">Cetak</button>
+          <% if (getData.length === 0) { %>
+            <a href="#" class="btn btn-success mb-3">Cetak</a>
+          <% }else{ %>
+            <a href="/laporan/cetak/<%= getData[0].id_ruangan %>" target ="_blank" class="btn btn-success mb-3">Cetak</a>
+          <% } %>
         </div>
       </div>
     </div>
