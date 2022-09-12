@@ -16,6 +16,7 @@ var usersRouter = require('./routes/users');
 var login = require('./routes/login')
 var home = require('./routes/home');
 var distibusiRouter = require('./routes/distribusi');
+var mutasiRouter = require('./routes/mutasi');
 var laporan = require('./routes/laporan');
 var logout = require('./routes/logout');
 
@@ -50,6 +51,7 @@ app.use('/users', usersRouter);
 app.use('/login', login);
 app.use('/home', home);
 app.use('/distribusi', distibusiRouter);
+app.use('/mutasi', mutasiRouter)
 app.use('/laporan', laporan);
 app.use('/', index);
 app.use('/logout', logout);
