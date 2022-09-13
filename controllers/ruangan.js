@@ -23,8 +23,13 @@ module.exports = {
     },
 
     create : async (req, res) => {
-        await ruangan.create({
-            id_ruangan : req.body.id_ruangan,
+        const {id_ruangan} = req.body;
+        const find = await ruangan.findOne({where : {id_ruangan : id_ruangan}})
+        if(find){
+            return res.status(400).send("<script language='javascript' type='text/javascript'>alert('ID Ruangan Telah Digunakan');window.location.href='/ruangan/inputruangan';</script>");
+        }
+        ruangan.create({
+            id_ruangan : id_ruangan,
             nama_ruangan : req.body.nama_ruangan,
             deleted : false
         }).then(result => {

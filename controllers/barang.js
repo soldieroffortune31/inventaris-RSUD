@@ -32,6 +32,10 @@ module.exports = {
     },
 
     create : async (req, res) => {
+        const jumlah = req.body.jumlah;
+        if(Number(jumlah) === 0){
+            return res.status(400).send("<script language='javascript' type='text/javascript'>alert('Silahkan Masukkan Jumlah Barang');window.location.href='/barang/inputbarang';</script>");
+        }
         var current = new Date();
         var newID = current.getTime().toString();
         const id_barang = newID;

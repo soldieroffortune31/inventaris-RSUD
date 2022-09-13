@@ -44,53 +44,75 @@ module.exports = {
     },
 
     create : (req, res) => {
-        var current = new Date();
-        var no = 1000;
         const {id_barang, jumlah, baik, kurang_baik, rusak_berat, id_ruangan} = req.body;
-        let generateCode = [];  
-        for(let k=1; k<=Number(baik); k++){
-                no = no + 1;    
-                let obj = {
-                    id_detailbarang : current.getTime()+no.toString(),
-                    id_barang : id_barang,
-                    id_ruangan : id_ruangan,
-                    kondisi : "Baik",
-                    createdby : req.user.nama_petugas,
-                    deleted : false
+        let total = Number(baik) + Number(kurang_baik) + Number(rusak_berat)
+
+        detail_barang.count({where : {id_barang : id_barang}})
+        .then(jumlahBarang => {
+            barang.findOne({where : {id_barang : id_barang}})
+            .then(dataBarang => {
+                let hitung = Number(jumlah) + jumlahBarang
+                if(hitung > dataBarang.jumlah){
+                    return res.status(400).send("<script language='javascript' type='text/javascript'>alert('Jumlah Barang Tidak Cukup');window.location.href='/distribusi/pilih';</script>");
+                }else if(Number(jumlah) === 0){
+                    return res.status(400).send("<script language='javascript' type='text/javascript'>alert('Masukkan Jumlah Barang Yang Akan Didistribusi');window.location.href='/distribusi/pilih';</script>");
+                }else if(total !== Number(jumlah)){
+                    return res.status(400).send("<script language='javascript' type='text/javascript'>alert('Jumlah Barang dan Jumlah Kondisi Tidak Sama');window.location.href='/distribusi/pilih';</script>");
+                }else if(id_ruangan === "Pilih Ruangan"){
+                    return res.status(400).send("<script language='javascript' type='text/javascript'>alert('Belum Pilih Ruangan');window.location.href='/distribusi/pilih';</script>");
                 }
-                generateCode.push(obj);
-            
-        }
-        for(let x=1; x<=Number(kurang_baik); x++){ 
-                no = no + 1;
-                let obj = {
-                    id_detailbarang : current.getTime()+no.toString(),
-                    id_barang : id_barang,
-                    id_ruangan : id_ruangan,
-                    kondisi : "Kurang Baik",
-                    createdby : req.user.nama_petugas,
-                    deleted : false
-                }
-                generateCode.push(obj);
-        }
-        for(let y=1; y<=Number(rusak_berat); y++){
-                no = no + 1;
-                let obj = {
-                    id_detailbarang : current.getTime()+no.toString(),
-                    id_barang : id_barang,
-                    id_ruangan : id_ruangan,
-                    kondisi : "Rusak Berat",
-                    createdby : req.user.nama_petugas,
-                    deleted : false
-                }
-                generateCode.push(obj);
-        }
         
-        console.log(generateCode);
-        detail_barang.bulkCreate(generateCode)
-        .then(result => {
-            res.status(200).redirect('/distribusi/pilih');
+                var current = new Date();
+                var no = 1000;
+                let generateCode = [];  
+                for(let k=1; k<=Number(baik); k++){
+                        no = no + 1;    
+                        let obj = {
+                            id_detailbarang : current.getTime()+no.toString(),
+                            id_barang : id_barang,
+                            id_ruangan : id_ruangan,
+                            kondisi : "Baik",
+                            createdby : req.user.nama_petugas,
+                            deleted : false
+                        }
+                        generateCode.push(obj);
+                    
+                }
+                for(let x=1; x<=Number(kurang_baik); x++){ 
+                        no = no + 1;
+                        let obj = {
+                            id_detailbarang : current.getTime()+no.toString(),
+                            id_barang : id_barang,
+                            id_ruangan : id_ruangan,
+                            kondisi : "Kurang Baik",
+                            createdby : req.user.nama_petugas,
+                            deleted : false
+                        }
+                        generateCode.push(obj);
+                }
+                for(let y=1; y<=Number(rusak_berat); y++){
+                        no = no + 1;
+                        let obj = {
+                            id_detailbarang : current.getTime()+no.toString(),
+                            id_barang : id_barang,
+                            id_ruangan : id_ruangan,
+                            kondisi : "Rusak Berat",
+                            createdby : req.user.nama_petugas,
+                            deleted : false
+                        }
+                        generateCode.push(obj);
+                }
+                
+                console.log(generateCode);
+                detail_barang.bulkCreate(generateCode)
+                .then(result => {
+                    res.status(200).redirect('/distribusi/pilih');
+                })    
+            })
+                
         })
+
+        
     }
 
     // renderpilih : (req, res) => {

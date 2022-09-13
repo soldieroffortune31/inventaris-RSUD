@@ -36,9 +36,10 @@ module.exports = {
 	inputmutasi : async (req, res) => {
 		const {id_detailbarang} = req.body;
         console.log(id_detailbarang);
-  
-        if(req.body.idRuangan === req.body.id_ruangan){
-            res.status(400).send('Ruangan Tidak Boleh Sama');
+        if(req.body.id_ruangan === "Pilih Ruangan"){
+            return res.status(400).send("<script language='javascript' type='text/javascript'>alert('Silahkan Pilih Ruangan Tujuan Mutasi');window.location.href='/mutasi';</script>");
+        }else if(req.body.idRuangan === req.body.id_ruangan){
+            return res.status(400).send("<script language='javascript' type='text/javascript'>alert('Ruangan Tidak Boleh Sama');window.location.href='/mutasi';</script>");
         }else{
             await detail_barang.update({
                 kondisi : req.body.kondisi,
